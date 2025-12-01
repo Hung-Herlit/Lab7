@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 7 - Bài 2</title>
+</head>
+<body>
+    <h1>Demo Fetch API - Upload File</h1>
+    
+    <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">Upload</button>
+
+    <script>
+        function uploadFile() {
+            // 1. Lấy file từ input
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Vui lòng chọn file!");
+                return;
+            }
+
+            // 2. Tạo đối tượng FormData để chứa dữ liệu file
+            const formData = new FormData();
+            formData.append("file", file); // Key "file" này phải khớp với request.getPart("file") ở Servlet
+
+            // 3. Gửi request POST bằng Fetch API
+            fetch('/Lab7/bai2', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Xuất kết quả ra console
+                console.log("Kết quả Upload:");
+                console.log(data);
+                
+                alert("Upload thành công! Kiểm tra console (F12) để xem chi tiết.");
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert("Có lỗi xảy ra khi upload.");
+            });
+        }
+    </script>
+</body>
+</html>

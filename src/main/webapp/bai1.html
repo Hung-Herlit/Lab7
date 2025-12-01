@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 7 - Bài 1</title>
+</head>
+<body>
+    <h1>Demo Fetch API - Get JSON</h1>
+    <button onclick="loadData()">Tải dữ liệu</button>
+
+    <script>
+        function loadData() {
+            // Sử dụng Fetch API gọi đến đường dẫn Servlet
+            fetch('bai1') // Lưu ý: '/Lab7' là Context Root của dự án, thay đổi nếu cần
+                .then(response => {
+                    // Chuyển đổi dữ liệu nhận được sang JSON
+                    return response.json();
+                })
+                .then(data => {
+                    // Xuất dữ liệu ra console theo yêu cầu
+                    console.log("Dữ liệu nhận được từ Server:");
+                    console.log(data);
+                    
+                    // (Mở rộng) Demo hiển thị thử một thuộc tính
+                    console.log("Họ tên: " + data.hoTen);
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                });
+        }
+    </script>
+</body>
+</html>
